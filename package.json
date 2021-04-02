@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "make:inserts": "node scripts/inserts.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
