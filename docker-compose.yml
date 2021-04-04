@@ -2,13 +2,14 @@ version: "3.5"
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:13-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      # - postgres:/data/postgres
+      - ./sql:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
 

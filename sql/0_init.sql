@@ -18,14 +18,14 @@ create table trainers
     last_name     varchar(255),
     birth_date    timestamp,
     gender        char,
-    birth_country varchar(255)
+    birth_country varchar(255),
+    is_gym_leader boolean
 );
 
 create table pokemon_trainer
 (
     pokemon_id    integer,
     trainer_id    integer,
-    is_gym_leader boolean,
     nickname      varchar(255),
     gender        char,
     level         integer,

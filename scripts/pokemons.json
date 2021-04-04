@@ -863,18 +863,18 @@
 	},
 	{
 		"id": 83,
-		"name": "Farfetch'd",
+		"name": "Farfetchd",
 		"types": ["normal", "flying"],
 		"forms": [
 			{
-				"name": "Farfetch'd",
+				"name": "Farfetchd",
 				"types": [
 					"normal",
 					"flying"
 				]
 			},
 			{
-				"name": "Farfetch'd Galar",
+				"name": "Farfetchd Galar",
 				"isNfe": true,
 				"types": [
 					"fighting"
@@ -5494,7 +5494,7 @@
 				"types": ["water", "dark"]
 			},
 			{
-				"name": "Ash's Greninja",
+				"name": "Ash Greninja",
 				"types": ["water", "dark"],
 				"spriteSuffix": "ash"
 			}
@@ -7539,7 +7539,7 @@
 	},
 	{
 		"id": 865,
-		"name": "Sirfetch'd",
+		"name": "Sirfetchd",
 		"isNfe": true,
 		"types": [
 			"fighting"
