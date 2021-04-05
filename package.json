@@ -4,6 +4,7 @@
     "make:inserts": "node scripts/inserts.js"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "markdown-pdf": "^10.0.0"
   }
 }
