@@ -71,9 +71,9 @@ public class ConcurrentTransactions {
 
         //CODICE DA MODIFICARE CON VOSTRI DATI PER CONNESSIONE
 
-        String url = "jdbc:postgresql://10.251.153.37:5432/YOUR_DBNAME";
-        String user = "YOUR_USERNAME";
-        String pass = "YOUR_PASSWORD";
+        String url = "jdbc:postgresql://localhost:5432/pokedex";
+        String user = "postgres";
+        String pass = "secret";
 
         Connection conn = null;
 
