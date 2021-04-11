@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "make:inserts": "node scripts/inserts.js"
+    "make:inserts": "node scripts/inserts.js",
+    "make:relazione": "node scripts/relazione.js"
   },
   "dependencies": {
     "lodash": "^4.17.21",
