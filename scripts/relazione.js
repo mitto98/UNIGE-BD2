@@ -37,4 +37,7 @@ md = md.replace(/^@query\((.+)\)$/gm, function (match, p1) {
   return fs.readFileSync(filePath).toString();
 })
 
-mdToPdf({ content: md }, { dest: destName });
+mdToPdf({ content: md }, { 
+  dest: destName,
+  basedir: workdir
+});
