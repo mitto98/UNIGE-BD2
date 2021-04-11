@@ -10,16 +10,18 @@ const {
   uniq
 } = require('lodash');
 const { left, right, regions } = require('./inserts/data.json');
+const pokeTypes = uniq(flatten(require('./inserts/pokemons.json').map(p => p.types)));
 
 
+const NO_POKEMON = 5000;
+const NO_TRAINERS = 150000;
+const NO_POKEMON_TRAINER = 100000;
+const NO_BATTLES = 100000;
+const NO_GYM = 20000;
+const NO_TRAINER_GYM = 25000;
 
-const NO_TRAINERS = 100000;
-const NO_POKEMON_TRAINER = 1000000;
-const NO_BATTLES = 10000000;
-const NO_GYM = 100000;
-const NO_TRAINER_GYM = 5000000;
 
-const CHUNK_SIZE = 100;
+const CHUNK_SIZE = 1000;
 
 
 
@@ -38,21 +40,26 @@ function buildInsertStatement(fields, tableName, elements) {
   return `INSERT INTO ${tableName} (${fields.join(', ')}) \nVALUES \n ${sql};`;
 }
 
-async function makeInsert(fileIndex, tableName, elements) {
+function makeInsert(fileIndex, tableName, elements) {
+  const filename = `./sql/2.${fileIndex}_insert_${tableName}.sql`;
+
+  const stream = fs.createWriteStream(filename);
+
   console.log(`Creating table ${tableName}`);
   const fields = Object.keys(elements[0]);
 
-  let insert = `SET search_path TO pokedex;\n\n`;
-  insert += chunk(elements, CHUNK_SIZE)
-    .map(chunk => buildInsertStatement(fields, tableName, chunk))
-    .join('\n\n');
-
-  fs.writeFileSync(`./sql/2.${fileIndex}_insert_${tableName}.sql`, insert);
+  stream.write(`SET search_path TO pokedex;\n\n`);
+  chunk(elements, CHUNK_SIZE)
+    .forEach(chunk => {
+      const insert = buildInsertStatement(fields, tableName, chunk);
+      stream.write(insert);
+    })
+  stream.end();
 }
 
 
 
-async function generatePokemons() {
+function generatePokemons() {
   console.log(`Generating pokemons`);
   // poke.forEach(p => {
   //   pokemons.push(cleanPokemon(p));
@@ -64,11 +71,18 @@ async function generatePokemons() {
     primary_type: p.types[0],
     secondary_type: p.types[1],
   }));
+
+  range(NO_POKEMON - pokemons.length).forEach(i => ({
+    id: pokemons.length + 1 + i,
+    name: sample(left) + ' ' + sample(right),
+    primary_type: sample(pokeTypes),
+    secondary_type: null,
+  }))
   makeInsert(0, 'pokemons', pokemons);
   return pokemons;
 }
 
-async function generateTrainers() {
+function generateTrainers() {
   console.log(`Generating trainers`);
   const trainers = range(NO_TRAINERS).map(i => ({
     id: i + 1,
@@ -80,10 +94,10 @@ async function generateTrainers() {
     is_gym_leader: Math.random() > 0.9
   }));
   makeInsert(1, 'trainers', trainers);
-  return;
+  return trainers;
 }
 
-async function generatePokeTrainers(pokemons) {
+function generatePokeTrainers(pokemons) {
   console.log(`Generating pokemon_trainer`);
   const pokeTrainers = range(NO_POKEMON_TRAINER).map(i => ({
     id: i + 1,
@@ -98,7 +112,7 @@ async function generatePokeTrainers(pokemons) {
   return pokeTrainers;
 }
 
-async function generateBattles() {
+function generateBattles() {
   console.log(`Generating battles`);
   const battles = range(NO_BATTLES).map(i => ({
     id: i + 1,
@@ -110,9 +124,8 @@ async function generateBattles() {
   return battles;
 }
 
-async function generateGyms(trainers) {
+function generateGyms(trainers) {
   console.log(`Generating gyms`);
-  const pokeTypes = uniq(flatten(require('./inserts/pokemons.json').map(p => p.types)));
   const gyms = range(NO_GYM).map(i => ({
     id: i + 1,
     region: sample(regions),
@@ -124,7 +137,7 @@ async function generateGyms(trainers) {
   return gyms;
 }
 
-async function generateTrainerGym() {
+function generateTrainerGym() {
   console.log(`Generating trainer_gym`);
   const trainer_gym = range(NO_TRAINER_GYM).map(i => ({
     trainer_id: random(1, NO_TRAINERS),
@@ -133,16 +146,13 @@ async function generateTrainerGym() {
     has_won: Math.random() > 0.5,
   }));
   makeInsert(5, 'trainer_gym', trainer_gym);
+  return trainer_gym;
 }
 
 
-async function main() {
-  const pokemons = await generatePokemons();
-  const trainers = await generateTrainers();
-  generatePokeTrainers(pokemons);
-  generateBattles();
-  generateGyms(trainers);
-  generateTrainerGym();
-} 
-
-main();
+const pokemons = generatePokemons();
+const trainers = generateTrainers();
+generatePokeTrainers(pokemons);
+generateBattles();
+generateGyms(trainers);
+generateTrainerGym();
