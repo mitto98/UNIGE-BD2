@@ -1,4 +1,5 @@
 const fs = require('fs');
+const Path = require('path');
 const {
   chunk,
   flatten,
@@ -7,13 +8,13 @@ const {
   range,
   sample,
   startCase,
-  uniq
+  uniq,
 } = require('lodash');
 const { left, right, regions } = require('./inserts/data.json');
 const pokeTypes = uniq(flatten(require('./inserts/pokemons.json').map(p => p.types)));
 
 
-const NO_POKEMON = 5000;
+const NO_POKEMON = 11000;
 const NO_TRAINERS = 150000;
 const NO_POKEMON_TRAINER = 100000;
 const NO_BATTLES = 100000;
@@ -22,7 +23,6 @@ const NO_TRAINER_GYM = 25000;
 
 
 const CHUNK_SIZE = 1000;
-
 
 
 function randDate() {
@@ -60,25 +60,34 @@ function makeInsert(fileIndex, tableName, elements) {
 
 
 function generatePokemons() {
+  function getSpriteBase64(pokeId) {
+    const file = Path.join(process.cwd(), 'scripts/inserts/sprites', `${pokeId}.png`);
+    var bitmap = fs.readFileSync(file);
+    return Buffer.from(bitmap).toString('base64');
+  }
+
   console.log(`Generating pokemons`);
-  // poke.forEach(p => {
-  //   pokemons.push(cleanPokemon(p));
-  //    if (p.forms) pokemons.push(...p.forms.map(pp => cleanPokemon(pp)));
-  // })
   const pokemons = require('./inserts/pokemons.json').map(p => ({
     id: p.id,
     name: p.name,
     primary_type: p.types[0],
     secondary_type: p.types[1],
+    sprite: getSpriteBase64(p.id),
   }));
 
-  range(NO_POKEMON - pokemons.length).forEach(i => ({
-    id: pokemons.length + 1 + i,
-    name: sample(left) + ' ' + sample(right),
-    primary_type: sample(pokeTypes),
-    secondary_type: null,
-  }))
-  makeInsert(0, 'pokemons', pokemons);
+  range(NO_POKEMON - pokemons.length).forEach(i => {
+    pokemons.push({
+      id: pokemons.length + 1 + i,
+      name: `Missingno ${i + 1}`,
+      primary_type: null,
+      secondary_type: null,
+      sprite: getSpriteBase64('missingno'),
+    })
+  });
+
+  chunk(pokemons, 6000).forEach((pokes, i) => {
+    makeInsert(`0.${i}`, 'pokemons', pokes);
+  })
   return pokemons;
 }
 

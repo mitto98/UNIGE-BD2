@@ -5,7 +5,8 @@ create table pokemons
     id             serial not null,
     name           varchar(255),
     primary_type   varchar(255),
-    secondary_type varchar(255)
+    secondary_type varchar(255),
+    sprite         TEXT
 );
 
 create table trainers
