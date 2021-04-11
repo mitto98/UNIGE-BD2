@@ -1,4 +1,4 @@
-SELECT relname                                         AS "table",
+SELECT relname                                         AS "table_name",
        reltuples                                       AS "no_tuple",
        relpages                                        AS "no_pages",
        pg_size_pretty(pg_relation_size(c.oid, 'main')) AS "table_size"

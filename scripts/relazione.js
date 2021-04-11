@@ -21,7 +21,9 @@ function runQuery(query) {
 }
 
 
-const files = fs.readdirSync(workdir).map(f => path.join(workdir, f));
+const files = fs.readdirSync(workdir)
+  .filter(f => f.endsWith('.md'))
+  .map(f => path.join(workdir, f));
 let md = files.map(f => fs.readFileSync(f).toString()).join('\n\n');
 
 md = md.replace(/^@query\((.+)\)$/gm, function (match, p1) {
