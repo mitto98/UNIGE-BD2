@@ -21,6 +21,7 @@ create table trainers
 
 create table pokemon_trainer
 (
+    id             serial not null,
     pokemon_id    integer,
     trainer_id    integer,
     nickname      varchar(255),
