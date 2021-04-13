@@ -1,50 +1,65 @@
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
 
 class Transaction extends Thread {
-
-    Logger logger = LoggerFactory.getLogger(Transaction.class);
 
     // identifier of the transaction
     private int id;
     private Connection conn;
-    private Statement statement;
+    private List<Statement> statements;
 
-    Transaction(int id, Connection conn, Statement statement) {
+    Transaction(int id, Connection conn, List<Statement> statements) {
         this.id = id;
         this.conn = conn;
-        this.statement = statement;
+        this.statements = statements;
     }
 
     @Override
     public void run() {
-        System.out.println("transaction " + id + " started");
+        Logger logger = LoggerFactory.getLogger(Transaction.class);
+
+
+        logger.info("Transaction " + id + " started");
 
         int ms = (int) (Math.random() * 100);
         try {
             sleep(ms);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
-        try {
-            if(statement.isWrite()) {
-                conn.prepareStatement(statement.getSqlString()).executeUpdate();
-                //TODO capire dove vuole il commit, qua è brutto
-                conn.commit();
-            } else {
-                conn.prepareStatement(statement.getSqlString()).executeQuery();
+        for (Statement statement : statements) {
+            try {
+                if (statement.isWrite()) {
+                    conn.prepareStatement(statement.getSqlString()).executeUpdate();
+                    //TODO capire dove vuole il commit, qua è brutto
+                    conn.commit();
+                } else {
+                    ResultSet rs = conn.prepareStatement(statement.getSqlString()).executeQuery();
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int columnsNumber = rsmd.getColumnCount();
+                    String toPrint = String.valueOf(id).concat(":  ");
+                    while (rs.next()) {
+                        for (int i = 1; i < columnsNumber; i++) {
+                            toPrint = toPrint.concat(rs.getString(i) + " ");
+                        }
+                        toPrint = toPrint.concat(" | ");
+                    }
+                    logger.info(toPrint);
+                }
+            } catch (SQLException se) {
+                logger.error("Errore SQL", se);
+            } catch (Exception e) {
+                logger.error("Errore generico", e);
             }
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-
-        System.out.println("transaction " + id + " terminated");
+        logger.info("Transaction " + id + " terminated");
     }
 
 }

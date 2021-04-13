@@ -1,5 +1,6 @@
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import org.apache.log4j.BasicConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,11 +28,14 @@ public class ConcurrentTransactions {
 
     public static void main(String[] args) {
 
+        BasicConfigurator.configure();
+
         Logger logger = LoggerFactory.getLogger(ConcurrentTransactions.class);
 
         Connection conn = null;
 
-        List<Statement> statements = StatementFactory.getPreparedStatements();
+        StatementFactory statementFactory = StatementFactory.getInstance();
+
 
         try {
             //Class.forName("org.postgresql.Driver");
@@ -54,14 +58,11 @@ public class ConcurrentTransactions {
 
         // create numThreads transactions
         Transaction[] trans = new Transaction[numThreads];
-        for(Statement statement: statements) {
-            //TODO da capire cosa fare se threads > statements... si ricicla?
-            for (int i = 0; i < trans.length; i++) {
-                trans[i] = new Transaction(i + 1, conn, statement);
-            }
-            //Nessun thread rimanente, stop
-            break;
+
+        for (int i = 0; i < trans.length; i++) {
+            trans[i] = new Transaction(i + 1, conn, statementFactory.getPreparedStatements(3));
         }
+
 
         // start all transactions using a connection pool
         ExecutorService pool = Executors.newFixedThreadPool(maxConcurrent);
@@ -83,7 +84,7 @@ public class ConcurrentTransactions {
                 }
             }
         } catch (InterruptedException e) {
-            logger.error("Errore di interruzione",e);
+            logger.error("Errore di interruzione", e);
         }
     }
 }
