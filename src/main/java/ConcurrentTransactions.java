@@ -43,9 +43,11 @@ public class ConcurrentTransactions {
             PreparedStatement st = conn.prepareStatement("set search_path to pokedex");
             st.executeUpdate();
         } catch (SQLException se) {
-            logger.error("Errore SQL", se);
+            logger.error("Errore SQL durante la preparazione del DB", se);
+            System.exit(-1);
         } catch (Exception e) {
-            logger.error("Errore generico", e);
+            logger.error("Errore durante la preparazione del DB", e);
+            System.exit(-1);
         }
 
         // read command line parameters
