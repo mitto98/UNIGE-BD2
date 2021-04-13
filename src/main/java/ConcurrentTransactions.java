@@ -1,61 +1,14 @@
-/*
-Codice di partenza per transazioni concorrenti —
-Adattato da Nikolas Augsten 
- */
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import java.sql.*;
 import java.util.concurrent.TimeUnit;
-
-/**
- * Dummy transaction that prints a start message, waits for a random time
- * (up to 100ms) and finally prints a status message at termination.
- */
-
-class Transaction extends Thread {
-
-    // identifier of the transaction
-    int id;
-    Connection conn;
-
-    Transaction(int id, Connection conn) {
-        this.id = id;
-        this.conn = conn;
-    }
-
-    @Override
-    public void run() {
-        System.out.println("transaction " + id + " started");
-
-        // replace this with a transaction
-        int ms = (int) (Math.random() * 100);
-        try {
-            sleep(ms);
-        } catch (Exception e) {
-        }
-        ;
-        // end of portion to be replaced
-
-
-        /********** CODICE DA MODIFICARE PER REALIZZARE EFFETTIVE TRANSAZIONI *************
-         try{
-         // PreparedStatement st1 = conn.prepareStatement("ADD YOUR STATEMENT HERE");
-         // st1.executeUpdate();     SE LO STATEMENT E' UN UPDATE
-         // st1.executeQuery();       SE LO STATEMENT E' UNA QUERY
-         }catch(SQLException se){
-         se.printStackTrace();
-         }catch(Exception e){
-         e.printStackTrace();
-         }
-         *************************************************************************************/
-
-
-        System.out.println("transaction " + id + " terminated");
-    }
-
-}
 
 /**
  * <p>
@@ -64,33 +17,36 @@ class Transaction extends Thread {
  *
  * <p>params: numThreads maxConcurrent
  */
+
 public class ConcurrentTransactions {
+
+
+    static final String url = "jdbc:postgresql://localhost:5432/postgres";
+    static final String user = "postgres";
+    static final String pass = "secret";
 
     public static void main(String[] args) {
 
-
-        //CODICE DA MODIFICARE CON VOSTRI DATI PER CONNESSIONE
-
-        String url = "jdbc:postgresql://localhost:5432/pokedex";
-        String user = "postgres";
-        String pass = "secret";
+        Logger logger = LoggerFactory.getLogger(ConcurrentTransactions.class);
 
         Connection conn = null;
 
+        List<Statement> statements = StatementFactory.getPreparedStatements();
+
         try {
-            Class.forName("org.postgresql.Driver");
+            //Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, pass);
-            PreparedStatement st = conn.prepareStatement("set search_path to account");
+            PreparedStatement st = conn.prepareStatement("set search_path to pokedex");
             st.executeUpdate();
         } catch (SQLException se) {
-            se.printStackTrace();
+            logger.error("Errore SQL", se);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Errore generico", e);
         }
 
         // read command line parameters
         if (args.length != 2) {
-            System.err.println("params: numThreads maxConcurrent");
+            logger.error("Invalid Params: expected <numThreads> <maxConcurrent>");
             System.exit(-1);
         }
         int numThreads = Integer.parseInt(args[0]);
@@ -98,14 +54,19 @@ public class ConcurrentTransactions {
 
         // create numThreads transactions
         Transaction[] trans = new Transaction[numThreads];
-        for (int i = 0; i < trans.length; i++) {
-            trans[i] = new Transaction(i + 1, conn);
+        for(Statement statement: statements) {
+            //TODO da capire cosa fare se threads > statements... si ricicla?
+            for (int i = 0; i < trans.length; i++) {
+                trans[i] = new Transaction(i + 1, conn, statement);
+            }
+            //Nessun thread rimanente, stop
+            break;
         }
 
         // start all transactions using a connection pool
         ExecutorService pool = Executors.newFixedThreadPool(maxConcurrent);
-        for (int i = 0; i < trans.length; i++) {
-            pool.execute(trans[i]);
+        for (Transaction tran : trans) {
+            pool.execute(tran);
         }
         pool.shutdown(); // end program after all transactions are done
 
@@ -116,13 +77,13 @@ public class ConcurrentTransactions {
                 try {
                     conn.close();
                 } catch (SQLException se) {
-                    se.printStackTrace();
+                    logger.error("Errore SQL", se);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error("Errore generico", e);
                 }
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Errore di interruzione",e);
         }
     }
 }
