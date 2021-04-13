@@ -37,10 +37,6 @@ public class StatementFactory {
         return index;
     }
 
-    public int incrementIndex() {
-        this.index++;
-        return index;
-    }
 
     public void setIndex(int index) {
         this.index = index;
