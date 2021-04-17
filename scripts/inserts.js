@@ -32,7 +32,7 @@ function randDate() {
 function buildInsertStatement(fields, tableName, elements) {
   let sql = elements.map(el => {
     const tupla = fields.map(f => {
-      if (!el[f]) return 'NULL';
+      if (!el[f] && el[f] !== false) return 'NULL';
       return isString(el[f]) ? `'${el[f]}'` : el[f];
     }).join(', ');
     return `\t(${tupla})`;
@@ -128,6 +128,7 @@ function generateBattles() {
     first_trainer_id: random(1, NO_TRAINERS),
     second_trainer_id: random(1, NO_TRAINERS),
     battle_date: randDate(),
+    win: !!(Math.random() > 0.5),
   }));
   makeInsert(3, 'battles', battles);
   return battles;

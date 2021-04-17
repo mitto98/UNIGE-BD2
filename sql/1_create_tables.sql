@@ -36,7 +36,8 @@ create table battles
     id                serial not null,
     first_trainer_id  integer,
     second_trainer_id integer,
-    battle_date       timestamp
+    battle_date       timestamp,
+    win               boolean
 );
 
 create table gyms
