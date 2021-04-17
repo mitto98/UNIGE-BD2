@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Transaction extends Thread {
 
@@ -41,16 +44,8 @@ class Transaction extends Thread {
                     conn.commit();
                 } else {
                     ResultSet rs = conn.prepareStatement(statement.getSqlString()).executeQuery();
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    int columnsNumber = rsmd.getColumnCount();
-                    String toPrint = String.valueOf(id).concat(":  ");
-                    while (rs.next()) {
-                        for (int i = 1; i < columnsNumber; i++) {
-                            toPrint = toPrint.concat(rs.getString(i) + " ");
-                        }
-                        toPrint = toPrint.concat(" | ");
-                    }
-                    logger.info(toPrint);
+                    List<Map> results = resultSetToArrayList(rs);
+                    logger.info(results.toString());
                 }
             } catch (SQLException se) {
                 logger.error("Errore SQL", se);
@@ -60,6 +55,21 @@ class Transaction extends Thread {
         }
 
         logger.info("Transaction " + id + " terminated");
+    }
+
+    public List<Map> resultSetToArrayList(ResultSet rs) throws SQLException{
+        ResultSetMetaData md = rs.getMetaData();
+        int columns = md.getColumnCount();
+        ArrayList list = new ArrayList(50);
+        while (rs.next()){
+            HashMap row = new HashMap(columns);
+            for(int i=1; i<=columns; ++i){
+                row.put(md.getColumnName(i),rs.getObject(i));
+            }
+            list.add(row);
+        }
+
+        return list;
     }
 
 }
