@@ -1,5 +1,8 @@
 /.idea/
 /.vscode/
+/.settings/
 /node_modules/
 /target/
 /Progetto BD2.iml
+/.classpath
+/.project
