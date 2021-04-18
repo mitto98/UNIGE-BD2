@@ -40,6 +40,7 @@ public class ConcurrentTransactions {
         try {
             //Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, pass);
+            conn.setAutoCommit(false);
             PreparedStatement st = conn.prepareStatement("set search_path to pokedex");
             st.executeUpdate();
         } catch (SQLException se) {

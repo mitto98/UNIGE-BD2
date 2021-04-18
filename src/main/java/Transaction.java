@@ -16,6 +16,7 @@ class Transaction extends Thread {
     private int id;
     private Connection conn;
     private List<Statement> statements;
+    Logger logger = LoggerFactory.getLogger(Transaction.class);
 
     Transaction(int id, Connection conn, List<Statement> statements) {
         this.id = id;
@@ -25,8 +26,6 @@ class Transaction extends Thread {
 
     @Override
     public void run() {
-        Logger logger = LoggerFactory.getLogger(Transaction.class);
-
 
         logger.info("Transaction " + id + " started");
 
@@ -40,8 +39,6 @@ class Transaction extends Thread {
             try {
                 if (statement.isWrite()) {
                     conn.prepareStatement(statement.getSqlString()).executeUpdate();
-                    //TODO capire dove vuole il commit, qua è brutto
-                    conn.commit();
                 } else {
                     ResultSet rs = conn.prepareStatement(statement.getSqlString()).executeQuery();
                     List<Map> results = resultSetToArrayList(rs);
@@ -54,7 +51,17 @@ class Transaction extends Thread {
             }
         }
 
-        logger.info("Transaction " + id + " terminated");
+        try {
+            this.commit();
+        } catch (SQLException e) {
+            logger.error("Impossibile committare la transazione " + id, e);
+        }
+
+    }
+
+    public void commit() throws SQLException {
+        this.conn.commit();
+        logger.info("Transaction " + id + " committed");
     }
 
     public List<Map> resultSetToArrayList(ResultSet rs) throws SQLException{
