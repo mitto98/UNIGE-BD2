@@ -34,4 +34,8 @@ GRANT INSERT ON pokedex.battles TO professor;
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA pokedex TO god;
 
---TODO punto 4 e 5
+--TODO punto 4
+
+REVOKE trainer FROM other_generic_trainer;
+REVOKE UPDATE ON pokedex.pokemon_trainer FROM trainer CASCADE; --Lo estende anche a gym_leader
+REVOKE INSERT ON pokedex.battles FROM trainer RESTRICT ; --Limitato a trainer
