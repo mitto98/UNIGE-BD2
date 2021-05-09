@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
 const { mdToPdf } = require('md-to-pdf');
+const { mainModule } = require('process');
 
 
 /** CONFIG **/
@@ -20,24 +21,44 @@ function runQuery(query) {
   );
 }
 
+async function processString({file, md}) {
+  console.log("Started ", file);
+  const res = md.replace(/^@query\((.+)\)$/gm, function (match, p1) {
+    return runQuery(p1).stdout.toString();
+  }).replace(/^@queryFile\((.+)\)$/gm, function (match, p1) {
+    const filePath = path.join(workdir, p1);
+    const query = fs.readFileSync(filePath).toString();
+    return runQuery(query).stdout.toString();
+  }).replace(/^@qiFile\((.+)\)$/gm, function (match, p1) {
+    const filePath = path.join(workdir, p1);
+    const query = 'EXPLAIN ANALYZE ' + fs.readFileSync(filePath).toString();
+    return runQuery(query).stdout.toString();
+  }).replace(/^@file\((.+)\)$/gm, function (match, p1) {
+    const filePath = path.join(workdir, p1);
+    return fs.readFileSync(filePath).toString();
+  });
+  console.log("Finished ", file);
 
-const files = fs.readdirSync(workdir)
-  .filter(f => f.endsWith('.md'))
-  .map(f => path.join(workdir, f));
-let md = files.map(f => fs.readFileSync(f).toString()).join('\n\n');
+  return res;
+}
 
-md = md.replace(/^@query\((.+)\)$/gm, function (match, p1) {
-  return runQuery(p1).stdout.toString();
-}).replace(/^@queryFile\((.+)\)$/gm, function (match, p1) {
-  const filePath = path.join(workdir, p1);
-  const query = fs.readFileSync(filePath).toString();
-  return runQuery(query).stdout.toString();
-}).replace(/^@file\((.+)\)$/gm, function (match, p1) {
-  const filePath = path.join(workdir, p1);
-  return fs.readFileSync(filePath).toString();
-})
 
-mdToPdf({ content: md }, { 
-  dest: destName,
-  basedir: workdir
-});
+(async function () {
+  const mds = fs.readdirSync(workdir)
+    .filter(f => f.endsWith('.md'))
+    .map(f => {
+      return {
+        file: f,
+        md: fs.readFileSync(path.join(workdir, f)).toString()
+      }
+    });
+
+  const md = (await Promise.all(mds.map(processString))).join('\n\n');
+
+  mdToPdf({ content: md }, { 
+    dest: destName,
+    basedir: workdir,
+    // as_html: true,
+    css: 'table td { padding: 0 !important; }'
+  });
+})();
