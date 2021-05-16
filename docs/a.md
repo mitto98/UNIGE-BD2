@@ -1,1 +1,1 @@
-## PARTE A: Scelta dello strumento e creazione della base di dati
+# PARTE A: Scelta dello strumento e creazione della base di dati

@@ -1,4 +1,4 @@
-## Appendice (Parte C)
+# Appendice (Parte C)
 
 [comment]: <> (**FILE:** labo.java)
 

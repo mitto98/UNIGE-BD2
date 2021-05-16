@@ -21,10 +21,15 @@ function runQuery(query) {
   );
 }
 
+// NON FARE ASYNC, 
+//   LA GENERAZIONE DEVE ESSERE OBBLICATORIAMENTE SINCRONA PER GARANTIRE ORDINE DI ESECUZIONE
 async function processString({file, md}) {
   console.log("Started ", file);
   const res = md.replace(/^@query\((.+)\)$/gm, function (match, p1) {
     return runQuery(p1).stdout.toString();
+  }).replace(/^@runQuery\((.+)\)$/gm, function (match, p1) {
+    console.log(runQuery(p1).stdout.toString());
+    return '';
   }).replace(/^@queryFile\((.+)\)$/gm, function (match, p1) {
     const filePath = path.join(workdir, p1);
     const query = fs.readFileSync(filePath).toString();
@@ -33,6 +38,11 @@ async function processString({file, md}) {
     const filePath = path.join(workdir, p1);
     const query = 'EXPLAIN ANALYZE ' + fs.readFileSync(filePath).toString();
     return runQuery(query).stdout.toString();
+  }).replace(/^@runQueryFile\((.+)\)$/gm, function (match, p1) {
+    const filePath = path.join(workdir, p1);
+    const query = fs.readFileSync(filePath).toString();
+    console.log(runQuery(query).stdout.toString());
+    return '';
   }).replace(/^@file\((.+)\)$/gm, function (match, p1) {
     const filePath = path.join(workdir, p1);
     return fs.readFileSync(filePath).toString();
