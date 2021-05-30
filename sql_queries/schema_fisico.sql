@@ -10,12 +10,19 @@ CREATE INDEX battle_partecipants ON pokedex.battles(first_trainer_id, second_tra
 
 
 --Q2 serve solo per pokemon_id, ma dato che usa funz di gruppo, non serve
---CREATE INDEX pt_pokemon_trainer ON pokedex.pokemon_trainer(first_trainer_id, second_trainer_id);
+CREATE INDEX pt_pokemon_trainer ON pokedex.pokemon_trainer(pokemon_id);
 
 
-
--- Q3 se aggiungo id non migliora, devo capire perche!
+-- Q3 se aggiungo id non migliora, devo capire perche! (Se ho una query nella proiezione, allora fa una fullscan sempre);
 CREATE INDEX trainer_name ON pokedex.trainers(first_name, last_name);
+
+
+-- Q4 remove full scan from the group function query
+CREATE INDEX gym_type ON pokedex.gyms(type);
+
+CREATE INDEX has_won_match ON pokedex.trainer_gym(has_won);
+
+
 
 
 
