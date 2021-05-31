@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const childProcess = require("child_process");
 const { mdToPdf } = require("md-to-pdf");
-const { mainModule } = require("process");
 
 /** CONFIG **/
 const srcPath = "./docs/";
@@ -20,7 +19,7 @@ function restartDb() {
     env: process.env,
     cwd: process.cwd(),
   });
-  childProcess.spawnSync("sleep", ["5"]);
+  childProcess.spawnSync("sleep", ["2"]);
 }
 
 function runQuery(query) {
