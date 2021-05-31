@@ -1,7 +1,6 @@
-SELECT t.id,
-       t.first_name,
+SELECT t.first_name,
        t.last_name,
        (SELECT count(*)
         FROM pokedex.battles b
-        WHERE b.second_trainer_id = t.id OR b.first_trainer_id = t.id) AS battles
+        WHERE b.second_trainer = t.username OR b.first_trainer = t.username) AS battles
 FROM pokedex.trainers t;

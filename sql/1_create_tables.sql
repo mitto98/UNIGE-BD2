@@ -2,7 +2,7 @@ SET search_path TO pokedex;
 
 create table pokemons
 (
-    id             serial not null,
+    -- id             serial not null,
     name           varchar(255),
     primary_type   varchar(255),
     secondary_type varchar(255),
@@ -11,7 +11,7 @@ create table pokemons
 
 create table trainers
 (
-    id            serial not null,
+    username      varchar(255),
     first_name    varchar(255),
     last_name     varchar(255),
     birth_date    timestamp,
@@ -22,9 +22,8 @@ create table trainers
 
 create table pokemon_trainer
 (
-    id             serial not null,
-    pokemon_id    integer,
-    trainer_id    integer,
+    pokemon       varchar(255),
+    trainer       varchar(255),
     nickname      varchar(255),
     gender        char,
     level         integer,
@@ -33,26 +32,25 @@ create table pokemon_trainer
 
 create table battles
 (
-    id                serial not null,
-    first_trainer_id  integer,
-    second_trainer_id integer,
-    battle_date       timestamp,
-    win               boolean
+    first_trainer  varchar(255),
+    second_trainer varchar(255),
+    battle_date    timestamp,
+    win            boolean
 );
 
 create table gyms
 (
-    id         serial not null,
+    name       varchar(255),
     region     varchar(255),
     type       varchar(255),
     medal_name varchar(255),
-    gym_leader integer
+    gym_leader varchar(255)
 );
 
 create table trainer_gym
 (
-    trainer_id   integer,
-    gym_id       integer,
+    trainer      varchar(255),
+    gym          varchar(255),
     last_attempt timestamp,
     has_won      boolean
 );

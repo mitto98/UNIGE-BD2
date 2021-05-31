@@ -1,1 +1,1 @@
-SELECT DISTINCT trainer_id FROM pokedex.trainer_gym WHERE has_won IS TRUE;
+SELECT DISTINCT trainer FROM pokedex.trainer_gym WHERE has_won IS TRUE;
