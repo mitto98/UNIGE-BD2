@@ -1,10 +1,7 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +13,8 @@ class Transaction extends Thread {
     private int id;
     private Connection conn;
     private List<Statement> statements;
-    Logger logger = LoggerFactory.getLogger(Transaction.class);
+    private Logger logger = LoggerFactory.getLogger(Transaction.class);
+    private Savepoint savepoint;
 
     Transaction(int id, Connection conn, List<Statement> statements) {
         this.id = id;
@@ -29,10 +27,18 @@ class Transaction extends Thread {
 
         logger.info("Transaction " + id + " started");
 
+        try {
+            this.savepoint = this.conn.setSavepoint();
+        } catch (SQLException throwables) {
+            logger.error("Impossibile settare un checkpoint", throwables);
+        }
+
+
         int ms = (int) (Math.random() * 100);
         try {
             sleep(ms);
         } catch (Exception ignored) {
+
         }
 
         for (Statement statement : statements) {
@@ -55,6 +61,11 @@ class Transaction extends Thread {
             this.commit();
         } catch (SQLException e) {
             logger.error("Impossibile committare la transazione " + id, e);
+            try {
+                this.conn.rollback(this.savepoint);
+            } catch (SQLException throwables) {
+                logger.error("Impossibile ripristinare un checkpoint", throwables);
+            }
         }
 
     }

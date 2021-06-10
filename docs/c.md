@@ -44,10 +44,16 @@ Statement 3: Select di first_name e last_name dalla tabella trainers il cui user
 ## Informazioni aggiuntive
 Transazioni implementate in SQL
 ``` SQL
-@file(../sql_queries/transaction.java)
+@file(../sql_queries/transactions.sql)
 ```
 
 Il codice dei vari statements è visibile all'interno della classe StatementFactory.java; questa è stata formattata in modo da essere il più leggibile possibile
+
+## Gestione checkpoint
+Il software è impostato in modo che crei un checkpoint all'inizio della transazione, prima di eseguire gli statement, e di ripristinarlo in caso di commit fallito.
+Per scelta, n eventuale statement in errore viene semplicemente saltato, non compromettetendo l'intera transazione. 
+In un contesto reale potrebbe non essere la scelta migliore, ma data la natura di questo progetto abbiamo preferito adoperare questo comportamento.
+
 
 ## Conclusioni
 L'implementazione principale prevede che ogni transazioni venga committata non appena essa termini di eseguire i propri statement, di conseguenza lo scheduling ottenuto varia molto ad ogni esecuzione. 
