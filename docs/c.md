@@ -51,7 +51,8 @@ Il codice dei vari statements è visibile all'interno della classe StatementFact
 
 ## Gestione checkpoint
 Il software è impostato in modo che crei un checkpoint all'inizio della transazione, prima di eseguire gli statement, e di ripristinarlo in caso di commit fallito.
-Per scelta, n eventuale statement in errore viene semplicemente saltato, non compromettetendo l'intera transazione. 
+
+Per scelta, un eventuale statement in errore viene semplicemente saltato, non compromettetendo l'intera transazione. 
 In un contesto reale potrebbe non essere la scelta migliore, ma data la natura di questo progetto abbiamo preferito adoperare questo comportamento.
 
 
