@@ -42,6 +42,11 @@ Statement 2: Inserimento di un nuovo elemento nella tabella pokemons il cui attr
 Statement 3: Select di first_name e last_name dalla tabella trainers il cui username compare il massimo della volte nella tabella pokemon_trainer
 
 ## Informazioni aggiuntive
+Transazioni implementate in SQL
+``` SQL
+@file(../sql_queries/transaction.java)
+```
+
 Il codice dei vari statements è visibile all'interno della classe StatementFactory.java; questa è stata formattata in modo da essere il più leggibile possibile
 
 ## Conclusioni

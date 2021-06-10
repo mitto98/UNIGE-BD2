@@ -1,3 +1,5 @@
+set search_path to pokedex;
+
 -- Transaction 1
 SELECT name
 FROM pokemons
