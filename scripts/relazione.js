@@ -59,10 +59,9 @@ function processString({ file, md }) {
       return runQuery(query).stdout.toString();
     })
     .replace(/^@qiFile\((.+)\)$/gm, function (match, p1) {
-      restartDb();
       const filePath = path.join(workdir, p1);
-      const query = "EXPLAIN ANALYZE " + fs.readFileSync(filePath).toString();
-      return runQuery(query).stdout.toString();
+      const query = "EXPLAIN " + fs.readFileSync(filePath).toString();
+     r return runQuery(query).stdout.toString();
     })
     .replace(/^@runQueryFile\((.+)\)$/gm, function (match, p1) {
       const filePath = path.join(workdir, p1);
