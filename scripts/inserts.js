@@ -154,7 +154,7 @@ function generateTrainerGym(trainers, gyms) {
   const trainer_gym = range(NO_TRAINER_GYM).map((i) => ({
     trainer: sample(trainers).username,
     gym: sample(gyms).name,
-    last_attempt: randDate(),
+    attempt_date: randDate(),
     has_won: Math.random() > 0.5,
   }));
   makeInsert(5, "trainer_gym", trainer_gym);

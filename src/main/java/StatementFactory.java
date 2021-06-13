@@ -26,7 +26,7 @@ public class StatementFactory {
 
             /* Transazione 2 (A, C, G, E) */
             //Cancellazione delle battaglie in palestra non vinte e più vecchie di un anno
-            new Statement("DELETE FROM trainer_gym WHERE has_won IS FALSE AND last_attempt < NOW() - INTERVAL '1 year'", true),
+            new Statement("DELETE FROM trainer_gym WHERE has_won IS FALSE AND attempt_date < NOW() - INTERVAL '1 year'", true),
             //Tutti pokemon con almeno un'istanza a livello 1
             new Statement("SELECT name from pokemons where name IN (SELECT pokemon FROM pokemon_trainer where level = 1)", false),
             //Inserimento nuovo allenatore
@@ -36,7 +36,7 @@ public class StatementFactory {
 
             /* Transazione 3 (A, G, E) */
             //Battaglie in palestra non vinte e più vecchie di un anno
-            new Statement("SELECT * FROM trainer_gym WHERE has_won IS FALSE AND last_attempt < NOW() - INTERVAL '1 year'", false),
+            new Statement("SELECT * FROM trainer_gym WHERE has_won IS FALSE AND attempt_date < NOW() - INTERVAL '1 year'", false),
             //Licenziamento di tutti i capopalestra di Kalos
             new Statement("UPDATE trainers SET is_gym_leader = FALSE WHERE birth_country = 'Kalos'", true),
             //Tutti i capopalestra di Kalos

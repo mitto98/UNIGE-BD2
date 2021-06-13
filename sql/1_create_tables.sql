@@ -51,6 +51,6 @@ create table trainer_gym
 (
     trainer      varchar(255),
     gym          varchar(255),
-    last_attempt timestamp,
+    attempt_date timestamp,
     has_won      boolean
 );

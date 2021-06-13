@@ -1,6 +1,6 @@
 SET search_path TO pokedex;
 
-INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_127091', 'gym_16596', '1969-07-08T22:00:00.000Z', false),
 	('trainer_58932', 'gym_8130', '1978-01-20T23:00:00.000Z', false),
@@ -1001,7 +1001,7 @@ VALUES
 	('trainer_79217', 'gym_16745', '1942-07-03T22:00:00.000Z', true),
 	('trainer_118600', 'gym_13088', '1990-09-04T22:00:00.000Z', false),
 	('trainer_49468', 'gym_18760', '2007-05-05T22:00:00.000Z', false),
-	('trainer_90966', 'gym_329', '1963-06-02T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_90966', 'gym_329', '1963-06-02T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_14406', 'gym_16869', '2012-07-16T22:00:00.000Z', false),
 	('trainer_58617', 'gym_5195', '1940-01-04T23:00:00.000Z', false),
@@ -2002,7 +2002,7 @@ VALUES
 	('trainer_39459', 'gym_9834', '1967-01-27T23:00:00.000Z', true),
 	('trainer_32889', 'gym_17776', '2000-09-16T22:00:00.000Z', false),
 	('trainer_63173', 'gym_4706', '2010-08-28T22:00:00.000Z', true),
-	('trainer_15750', 'gym_3212', '2014-03-01T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_15750', 'gym_3212', '2014-03-01T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_25765', 'gym_8480', '2010-10-04T22:00:00.000Z', false),
 	('trainer_129839', 'gym_18274', '1997-10-20T22:00:00.000Z', true),
@@ -3003,7 +3003,7 @@ VALUES
 	('trainer_122280', 'gym_8766', '2017-05-10T22:00:00.000Z', true),
 	('trainer_13160', 'gym_2991', '1995-01-04T23:00:00.000Z', true),
 	('trainer_149338', 'gym_17785', '1985-04-14T22:00:00.000Z', true),
-	('trainer_55789', 'gym_16980', '1953-12-20T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_55789', 'gym_16980', '1953-12-20T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_25233', 'gym_15688', '2012-02-15T23:00:00.000Z', false),
 	('trainer_96958', 'gym_5550', '1988-10-10T23:00:00.000Z', true),
@@ -4004,7 +4004,7 @@ VALUES
 	('trainer_118750', 'gym_13426', '1959-06-12T23:00:00.000Z', false),
 	('trainer_143608', 'gym_9199', '2011-08-09T22:00:00.000Z', true),
 	('trainer_47401', 'gym_7516', '1986-05-04T22:00:00.000Z', true),
-	('trainer_136097', 'gym_8934', '1954-03-31T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_136097', 'gym_8934', '1954-03-31T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_140898', 'gym_13108', '1976-07-30T22:00:00.000Z', true),
 	('trainer_46128', 'gym_3666', '1981-01-04T23:00:00.000Z', true),
@@ -5005,7 +5005,7 @@ VALUES
 	('trainer_143308', 'gym_8857', '1954-03-11T23:00:00.000Z', false),
 	('trainer_143639', 'gym_1340', '1969-05-18T23:00:00.000Z', true),
 	('trainer_145194', 'gym_737', '1961-12-17T23:00:00.000Z', false),
-	('trainer_57222', 'gym_18488', '2020-12-01T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_57222', 'gym_18488', '2020-12-01T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_35704', 'gym_1687', '1971-11-11T23:00:00.000Z', true),
 	('trainer_19302', 'gym_14154', '1968-12-26T23:00:00.000Z', true),
@@ -6006,7 +6006,7 @@ VALUES
 	('trainer_98984', 'gym_11156', '2004-02-07T23:00:00.000Z', true),
 	('trainer_17235', 'gym_11964', '1980-01-16T23:00:00.000Z', false),
 	('trainer_100827', 'gym_13978', '1952-10-07T23:00:00.000Z', false),
-	('trainer_54418', 'gym_6297', '1965-08-29T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_54418', 'gym_6297', '1965-08-29T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_68614', 'gym_17747', '1999-04-26T22:00:00.000Z', false),
 	('trainer_50663', 'gym_11192', '1947-10-18T23:00:00.000Z', true),
@@ -7007,7 +7007,7 @@ VALUES
 	('trainer_84252', 'gym_15175', '1982-12-04T23:00:00.000Z', false),
 	('trainer_56204', 'gym_7984', '2015-12-02T23:00:00.000Z', true),
 	('trainer_22904', 'gym_2343', '1942-11-15T23:00:00.000Z', true),
-	('trainer_41215', 'gym_16270', '1975-12-06T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_41215', 'gym_16270', '1975-12-06T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_31093', 'gym_17985', '2021-01-29T23:00:00.000Z', true),
 	('trainer_3718', 'gym_2826', '1945-11-30T23:00:00.000Z', false),
@@ -8008,7 +8008,7 @@ VALUES
 	('trainer_114571', 'gym_12405', '2015-01-20T23:00:00.000Z', true),
 	('trainer_30550', 'gym_18613', '1954-05-14T23:00:00.000Z', true),
 	('trainer_65900', 'gym_1923', '2019-04-27T22:00:00.000Z', true),
-	('trainer_148531', 'gym_17155', '2006-07-09T22:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_148531', 'gym_17155', '2006-07-09T22:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_729', 'gym_18463', '2005-12-16T23:00:00.000Z', false),
 	('trainer_94021', 'gym_14528', '1998-01-20T23:00:00.000Z', true),
@@ -9009,7 +9009,7 @@ VALUES
 	('trainer_109431', 'gym_6597', '1951-08-08T23:00:00.000Z', false),
 	('trainer_17264', 'gym_9430', '1996-01-04T23:00:00.000Z', false),
 	('trainer_122734', 'gym_13528', '1959-08-24T23:00:00.000Z', false),
-	('trainer_60494', 'gym_5592', '1961-11-06T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_60494', 'gym_5592', '1961-11-06T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_19433', 'gym_6533', '1990-05-23T22:00:00.000Z', true),
 	('trainer_91679', 'gym_9228', '1998-01-18T23:00:00.000Z', true),
@@ -10010,7 +10010,7 @@ VALUES
 	('trainer_1779', 'gym_18650', '1971-07-15T22:00:00.000Z', false),
 	('trainer_145202', 'gym_527', '1957-01-03T23:00:00.000Z', true),
 	('trainer_84413', 'gym_192', '1949-05-29T23:00:00.000Z', true),
-	('trainer_80124', 'gym_12100', '1943-08-08T22:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_80124', 'gym_12100', '1943-08-08T22:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_100937', 'gym_3290', '2011-04-03T22:00:00.000Z', false),
 	('trainer_81377', 'gym_7649', '2019-07-02T22:00:00.000Z', false),
@@ -11011,7 +11011,7 @@ VALUES
 	('trainer_35967', 'gym_13689', '2005-08-25T22:00:00.000Z', false),
 	('trainer_26118', 'gym_10279', '1978-07-24T22:00:00.000Z', true),
 	('trainer_100811', 'gym_9935', '1983-11-25T23:00:00.000Z', true),
-	('trainer_68903', 'gym_3515', '1958-07-13T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_68903', 'gym_3515', '1958-07-13T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_64117', 'gym_7558', '1992-11-26T23:00:00.000Z', true),
 	('trainer_39480', 'gym_929', '1974-01-12T23:00:00.000Z', false),
@@ -12012,7 +12012,7 @@ VALUES
 	('trainer_55851', 'gym_16269', '1960-08-09T23:00:00.000Z', true),
 	('trainer_8859', 'gym_18653', '1944-06-03T22:00:00.000Z', true),
 	('trainer_73711', 'gym_17448', '1956-04-28T23:00:00.000Z', false),
-	('trainer_16190', 'gym_12932', '1978-06-11T22:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_16190', 'gym_12932', '1978-06-11T22:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_138860', 'gym_16532', '2012-01-25T23:00:00.000Z', false),
 	('trainer_28052', 'gym_16741', '1984-10-25T23:00:00.000Z', true),
@@ -13013,7 +13013,7 @@ VALUES
 	('trainer_48080', 'gym_1474', '1955-06-17T23:00:00.000Z', true),
 	('trainer_29692', 'gym_455', '1996-09-12T22:00:00.000Z', true),
 	('trainer_66840', 'gym_12530', '1982-07-04T22:00:00.000Z', true),
-	('trainer_14546', 'gym_9499', '1968-09-24T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_14546', 'gym_9499', '1968-09-24T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_142225', 'gym_12310', '2015-01-10T23:00:00.000Z', false),
 	('trainer_71418', 'gym_5373', '1988-07-31T22:00:00.000Z', true),
@@ -14014,7 +14014,7 @@ VALUES
 	('trainer_37836', 'gym_11880', '1991-04-19T22:00:00.000Z', false),
 	('trainer_31776', 'gym_1261', '1970-12-24T23:00:00.000Z', true),
 	('trainer_125448', 'gym_18346', '2002-02-22T23:00:00.000Z', true),
-	('trainer_141052', 'gym_15654', '1990-11-24T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_141052', 'gym_15654', '1990-11-24T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_12111', 'gym_18361', '1955-11-29T23:00:00.000Z', false),
 	('trainer_97489', 'gym_10324', '2005-06-08T22:00:00.000Z', true),
@@ -15015,7 +15015,7 @@ VALUES
 	('trainer_10386', 'gym_11830', '1973-01-18T23:00:00.000Z', true),
 	('trainer_22372', 'gym_17110', '1979-09-05T22:00:00.000Z', false),
 	('trainer_3122', 'gym_18121', '2006-09-23T22:00:00.000Z', true),
-	('trainer_79388', 'gym_14262', '2004-12-07T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_79388', 'gym_14262', '2004-12-07T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_83482', 'gym_9407', '1982-06-17T22:00:00.000Z', true),
 	('trainer_9400', 'gym_826', '1981-11-13T23:00:00.000Z', false),
@@ -16016,7 +16016,7 @@ VALUES
 	('trainer_141956', 'gym_18465', '2001-08-03T22:00:00.000Z', false),
 	('trainer_60827', 'gym_12476', '1961-04-26T23:00:00.000Z', false),
 	('trainer_76425', 'gym_19267', '1966-02-10T23:00:00.000Z', false),
-	('trainer_591', 'gym_957', '1965-07-21T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_591', 'gym_957', '1965-07-21T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_17648', 'gym_19236', '1999-06-19T22:00:00.000Z', false),
 	('trainer_128796', 'gym_12077', '1987-02-28T23:00:00.000Z', false),
@@ -17017,7 +17017,7 @@ VALUES
 	('trainer_116832', 'gym_19447', '1960-02-05T23:00:00.000Z', true),
 	('trainer_38939', 'gym_15470', '1988-01-28T23:00:00.000Z', false),
 	('trainer_20623', 'gym_19760', '1985-08-24T22:00:00.000Z', true),
-	('trainer_129580', 'gym_13835', '1981-03-21T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_129580', 'gym_13835', '1981-03-21T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_66798', 'gym_5102', '1967-02-16T23:00:00.000Z', true),
 	('trainer_101412', 'gym_19054', '2005-03-28T22:00:00.000Z', true),
@@ -18018,7 +18018,7 @@ VALUES
 	('trainer_135497', 'gym_14281', '1992-03-04T23:00:00.000Z', false),
 	('trainer_143', 'gym_10059', '1968-10-14T23:00:00.000Z', false),
 	('trainer_53843', 'gym_7197', '2018-11-24T23:00:00.000Z', false),
-	('trainer_107077', 'gym_19101', '1955-09-08T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_107077', 'gym_19101', '1955-09-08T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_115074', 'gym_12468', '1982-11-23T23:00:00.000Z', true),
 	('trainer_103199', 'gym_1716', '1983-08-29T22:00:00.000Z', false),
@@ -19019,7 +19019,7 @@ VALUES
 	('trainer_131687', 'gym_13196', '1942-05-14T22:00:00.000Z', true),
 	('trainer_8371', 'gym_1090', '2008-05-11T22:00:00.000Z', true),
 	('trainer_52527', 'gym_17075', '1953-10-19T23:00:00.000Z', true),
-	('trainer_37866', 'gym_17824', '1944-09-30T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_37866', 'gym_17824', '1944-09-30T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_48403', 'gym_864', '2008-02-07T23:00:00.000Z', true),
 	('trainer_91205', 'gym_12876', '1959-01-05T23:00:00.000Z', false),
@@ -20020,7 +20020,7 @@ VALUES
 	('trainer_112892', 'gym_4626', '1998-09-05T22:00:00.000Z', false),
 	('trainer_51894', 'gym_13299', '2013-03-17T23:00:00.000Z', false),
 	('trainer_98647', 'gym_13484', '1955-01-14T23:00:00.000Z', false),
-	('trainer_37471', 'gym_10175', '2009-12-16T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_37471', 'gym_10175', '2009-12-16T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_26007', 'gym_16444', '2020-11-09T23:00:00.000Z', true),
 	('trainer_75320', 'gym_11124', '2018-11-25T23:00:00.000Z', false),
@@ -21021,7 +21021,7 @@ VALUES
 	('trainer_72060', 'gym_18365', '2000-01-19T23:00:00.000Z', true),
 	('trainer_13913', 'gym_8478', '2004-11-04T23:00:00.000Z', true),
 	('trainer_62215', 'gym_15133', '2014-06-10T22:00:00.000Z', false),
-	('trainer_129019', 'gym_12647', '1981-02-10T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_129019', 'gym_12647', '1981-02-10T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_140694', 'gym_16089', '1961-08-17T23:00:00.000Z', true),
 	('trainer_85750', 'gym_3773', '1997-06-15T22:00:00.000Z', true),
@@ -22022,7 +22022,7 @@ VALUES
 	('trainer_47436', 'gym_19164', '1947-05-17T22:00:00.000Z', true),
 	('trainer_19359', 'gym_4680', '1995-12-20T23:00:00.000Z', true),
 	('trainer_55164', 'gym_12840', '1981-06-13T22:00:00.000Z', true),
-	('trainer_30981', 'gym_914', '1965-07-23T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_30981', 'gym_914', '1965-07-23T23:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_115334', 'gym_18660', '1949-07-10T23:00:00.000Z', true),
 	('trainer_71212', 'gym_5180', '1952-06-14T23:00:00.000Z', true),
@@ -23023,7 +23023,7 @@ VALUES
 	('trainer_44885', 'gym_9393', '1998-09-20T22:00:00.000Z', false),
 	('trainer_75400', 'gym_14675', '2006-01-03T23:00:00.000Z', true),
 	('trainer_7916', 'gym_15629', '1946-01-02T23:00:00.000Z', true),
-	('trainer_22552', 'gym_9436', '2012-06-19T22:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_22552', 'gym_9436', '2012-06-19T22:00:00.000Z', true);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_75405', 'gym_4404', '1989-09-15T22:00:00.000Z', false),
 	('trainer_35925', 'gym_18604', '2018-06-20T22:00:00.000Z', true),
@@ -24024,7 +24024,7 @@ VALUES
 	('trainer_125958', 'gym_14138', '1946-09-20T22:00:00.000Z', true),
 	('trainer_112578', 'gym_6273', '2002-04-05T22:00:00.000Z', false),
 	('trainer_128757', 'gym_6980', '1984-04-07T22:00:00.000Z', true),
-	('trainer_89948', 'gym_19856', '1949-01-16T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, last_attempt, has_won) 
+	('trainer_89948', 'gym_19856', '1949-01-16T23:00:00.000Z', false);INSERT INTO trainer_gym (trainer, gym, attempt_date, has_won)
 VALUES 
  	('trainer_73636', 'gym_15329', '1984-09-10T22:00:00.000Z', true),
 	('trainer_55308', 'gym_19826', '1983-12-24T23:00:00.000Z', true),

@@ -23,7 +23,7 @@ BEGIN;
 DELETE
 FROM trainer_gym
 WHERE has_won IS FALSE
-  AND last_attempt < NOW() - INTERVAL '1 year';
+  AND attempt_date < NOW() - INTERVAL '1 year';
 
 SELECT name
 FROM pokemons
@@ -40,7 +40,7 @@ BEGIN;
 SELECT *
 FROM trainer_gym
 WHERE has_won IS FALSE
-  AND last_attempt < NOW() - INTERVAL '1 year';
+  AND attempt_date < NOW() - INTERVAL '1 year';
 
 UPDATE trainers
 SET is_gym_leader = FALSE

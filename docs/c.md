@@ -15,7 +15,7 @@ Statement 3: Ottenimento di nome e primary_type dalla tabella pokemon con nome =
 
 Requisiti: A, C, G, E
 
-Statement 1: Cancellazione dalla tabella trainer_gym degli elementi con attributo has_won a false e valore del timestamp last_attempt minore di un anno da NOW()
+Statement 1: Cancellazione dalla tabella trainer_gym degli elementi con attributo has_won a false e valore del timestamp attempt_date minore di un anno da NOW()
 
 Statement 2: Ottenimento dei nomi dei pokemon che hanno almeno un'istanza all'interno della tabella pokemon_trainer con attributo livello uguale a 100
 
@@ -25,7 +25,7 @@ Statement 3: Insert di un nuovo elemento nella tabella trainers
 
 Requisiti: A, G, E
 
-Statement 1: Ottenimento di trainer dalla tabella trainer_gym degli elementi con attributo has_won a false e valore del timestamp last_attempt minore di un anno da NOW()
+Statement 1: Ottenimento di trainer dalla tabella trainer_gym degli elementi con attributo has_won a false e valore del timestamp attempt_date minore di un anno da NOW()
 
 Statement 2: Update della tabella trainers impostando i valori is_gym_leader a false per tutti gli elementi con attributo e birth_country = "Kalos"
 
