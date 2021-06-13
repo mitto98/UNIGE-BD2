@@ -1,1 +1,1 @@
-SELECT DISTINCT trainer FROM pokedex.trainer_gym WHERE has_won IS TRUE;
+SELECT DISTINCT trainer FROM pokedex.trainer_gym WHERE attempt_date >= '2020-01-01';
