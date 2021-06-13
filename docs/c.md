@@ -57,6 +57,7 @@ Il software è impostato in modo che crei un checkpoint all'inizio della transaz
 
 Per scelta, un eventuale statement in errore viene semplicemente saltato, non compromettetendo l'intera transazione. 
 In un contesto reale potrebbe non essere la scelta migliore, ma data la natura di questo progetto abbiamo preferito adoperare questo comportamento.
+Ad ogni modo, in tutti i test eseguito non è mai capitato di ricevere alcun errore.
 
 ## Livelli di isolamento
 Il livello di isolamento preimpostato è TRANSACTION_READ_COMMITTED, in questo modo ogni transazione rende visibili i propri cambiamenti solamente dopo il commit.
@@ -85,3 +86,5 @@ Ultimo test su 4000 transazioni in 4000 thread, 5 tentativi per livello:
 - TRANSACTION_READ_COMMITTED    =>  519675 ms
 - TRANSACTION_REPEATABLE_READ   =>  520127 ms
 - TRANSACTION_SERIALIZABLE      =>  610432 ms
+
+Lo stato del database dopo l'esecuzione delle transazioni non è mai uguale. La funziona di sleep con valore random eseguita prima di ogni transazione incide notevolmente sull'esecuzione del programma, a prescindere dal livello di isolamento
