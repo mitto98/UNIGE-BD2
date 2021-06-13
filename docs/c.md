@@ -82,9 +82,9 @@ Ripetiamo il test su 400 transazioni in 400 thread, sempre 5 tentativi per livel
 In questo caso i dati sono meno inaspettati del caso precedente. Al livello di isolamento più alto il software ha impiegato più tempo ad eseguire tutte le transazioni
 
 Ultimo test su 4000 transazioni in 4000 thread, 5 tentativi per livello:
-- TRANSACTION_READ_UNCOMMITTED  =>  510543 ms
-- TRANSACTION_READ_COMMITTED    =>  519675 ms
-- TRANSACTION_REPEATABLE_READ   =>  520127 ms
-- TRANSACTION_SERIALIZABLE      =>  610432 ms
+- TRANSACTION_READ_UNCOMMITTED  =>  840414 ms
+- TRANSACTION_READ_COMMITTED    =>  728745 ms
+- TRANSACTION_REPEATABLE_READ   =>  1010336 ms
+- TRANSACTION_SERIALIZABLE      =>  2123319 ms
 
 Lo stato del database dopo l'esecuzione delle transazioni non è mai uguale. La funziona di sleep con valore random eseguita prima di ogni transazione incide notevolmente sull'esecuzione del programma, a prescindere dal livello di isolamento
