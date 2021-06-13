@@ -23,7 +23,6 @@ function restartDb() {
 }
 
 function runQuery(query) {
-  console.log("Running", query);
   return childProcess.spawnSync(
     "docker-compose",
     [
@@ -61,7 +60,7 @@ function processString({ file, md }) {
     .replace(/^@qiFile\((.+)\)$/gm, function (match, p1) {
       const filePath = path.join(workdir, p1);
       const query = "EXPLAIN " + fs.readFileSync(filePath).toString();
-     r return runQuery(query).stdout.toString();
+      return runQuery(query).stdout.toString();
     })
     .replace(/^@runQueryFile\((.+)\)$/gm, function (match, p1) {
       const filePath = path.join(workdir, p1);
