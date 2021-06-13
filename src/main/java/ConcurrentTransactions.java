@@ -6,6 +6,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,9 +32,39 @@ public class ConcurrentTransactions {
 
     public static void main(String[] args) {
 
-        BasicConfigurator.configure();
+        Logger logger = LoggerFactory.getLogger(ConcurrentTransactions.class);
+
+        int[] levels = {
+                Connection.TRANSACTION_READ_UNCOMMITTED,
+                Connection.TRANSACTION_READ_COMMITTED,
+                Connection.TRANSACTION_REPEATABLE_READ,
+                Connection.TRANSACTION_SERIALIZABLE,
+        };
+
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        for (int level: levels) {
+            int sum = 0;
+            for (int j = 0; j < 3; j++) {
+                sum +=  doThings(args,level);
+            }
+            map.put(level, sum/3);
+        }
+
+        for(int level: levels) {
+            System.out.println("LEVEL ".concat(String.valueOf(level)).concat(": ").concat(String.valueOf(map.get(level))).concat(" ms"));
+        }
+
+    }
+
+    private static long doThings(String[] args, int isolationLevel) {
 
         Logger logger = LoggerFactory.getLogger(ConcurrentTransactions.class);
+
+
+        Instant start = Instant.now();
+
+        BasicConfigurator.configure();
 
         Connection conn = null;
 
@@ -41,6 +75,7 @@ public class ConcurrentTransactions {
             //Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, pass);
             conn.setAutoCommit(false);
+            conn.setTransactionIsolation(isolationLevel);
             PreparedStatement st = conn.prepareStatement("set search_path to pokedex");
             st.executeUpdate();
         } catch (SQLException se) {
@@ -76,7 +111,7 @@ public class ConcurrentTransactions {
 
         //CHIUSURA CONNESSIONE
         try {
-            if (!pool.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!pool.awaitTermination(10000, TimeUnit.SECONDS)) {
                 pool.shutdownNow();
                 try {
                     conn.close();
@@ -86,8 +121,13 @@ public class ConcurrentTransactions {
                     logger.error("Errore generico", e);
                 }
             }
+
+            Instant finish = Instant.now();
+            StatementFactory.deleteIstance();
+            return Duration.between(start, finish).toMillis();
         } catch (InterruptedException e) {
             logger.error("Errore di interruzione", e);
+            return 0;
         }
     }
 }

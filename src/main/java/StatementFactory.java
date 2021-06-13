@@ -69,6 +69,10 @@ public class StatementFactory {
         return statementFactory;
     }
 
+    public static void deleteIstance() {
+        statementFactory = null;
+    }
+
     public List<Statement> getPreparedStatements(int amount) {
         ArrayList<Statement> list = new ArrayList<>();
         for (int i = 0; i < amount; i++) {

@@ -25,7 +25,7 @@ class Transaction extends Thread {
     @Override
     public void run() {
 
-        logger.info("Transaction " + id + " started");
+        //logger.info("Transaction " + id + " started");
 
         try {
             this.savepoint = this.conn.setSavepoint();
@@ -48,7 +48,7 @@ class Transaction extends Thread {
                 } else {
                     ResultSet rs = conn.prepareStatement(statement.getSqlString()).executeQuery();
                     List<Map> results = resultSetToArrayList(rs);
-                    logger.info(results.toString());
+                    //logger.info(results.toString());
                 }
             } catch (SQLException se) {
                 logger.error("Errore SQL", se);
@@ -72,7 +72,7 @@ class Transaction extends Thread {
 
     public void commit() throws SQLException {
         this.conn.commit();
-        logger.info("Transaction " + id + " committed");
+        //logger.info("Transaction " + id + " committed");
     }
 
     public List<Map> resultSetToArrayList(ResultSet rs) throws SQLException{
